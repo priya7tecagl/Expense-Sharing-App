@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Sharing App</title>
+</head>
+<body style="background-color:powderblue;">
+    <table border="1">
+        <thead>
+    <center><h1 style="font-family:Tahoma;">Expense Sharing App</h1></center>
+    <h2><u>Add Expense</u></h2>
+    <form action="{{ url_for('add_expense') }}" method="POST">
+        <label for="description"><u>Description:</u></label><br>
+        <input type="text" id="description" name="description"><br>
+        <label for="amount"><u>Amount:</u></label><br>
+        <input type="text" id="amount" name="amount"><br>
+        <label for="paid_by"><u>Paid By:</u></label><br>
+        <input type="text" id="paid_by" name="paid_by"><br>
+        <label for="split_with"><u>Split With:</u></label><br>
+        <input type="text" id="split_with" name="split_with"><br><br>
+        <button type="submit"><u>Add Expense</u></button>
+    </form>
+    <hr>
+    <center><h2 style="color:rgba(230, 39, 182, 0.705);"><u>Add Expense</u></h2></center>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Paid By</th>
+                <th>Split With</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense[1] }}</td> <!-- Description -->
+                <td>{{ expense[2] }}</td> <!-- Amount -->
+                <td>{{ expense[3] }}</td> <!-- Paid By -->
+                <td>{{ expense[4] }}</td> <!-- Split With -->
+                <td>
+                    <form action="{{ url_for('delete_expense', expense_id=expense[0]) }}" method="GET">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+</body>
+</html>
